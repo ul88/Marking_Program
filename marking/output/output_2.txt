@@ -1,0 +1,2 @@
+start ../test_file/a.out new process
+asfsdfsadf
