@@ -1,2 +1,1 @@
-start ../test_file/a.out new process
-adsfassdfsa
+Hello World!
