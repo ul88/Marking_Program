@@ -16,18 +16,24 @@ public:
     ProblemLog() : MariaDB<ProblemLogColumn>("problem_log") {};
     ~ProblemLog() {};
     
-    void insertData(ProblemLog::Column column);
+    void insert(ProblemLog::Column column);
 };
 
-void ProblemLog::insertData(ProblemLog::Column column){
-    sql::SQLString query;
-    if(column.incorrectInputId == 0){
-        query = "INSERT INTO " + tableName + "(user_id, problem_id) VALUE (\""+column.userId+"\","+std::to_string(column.problemId)+")";
-    }else{
-        query = "INSERT INTO " + tableName + "(user_id, problem_id, incorrect_input_id) VALUE (\""+column.userId+"\","+std::to_string(column.problemId)+","+std::to_string(column.incorrectInputId)+")";
-    }
-    
-    insert(query);
+void ProblemLog::insert(ProblemLog::Column column){
+    PreparedStatementPtr stmnt = getInsertStmnt("INSERT INTO " + tableName + "(user_id, problem_id, incorrect_input_id) VALUES (?, ?, ?)");
+
+    try{
+        stmnt->setString(1, column.userId);
+        stmnt->setInt(2, column.problemId);
+        if(column.incorrectInputId != 0){
+            stmnt->setInt(3, column.incorrectInputId);
+        }else{
+            stmnt->setNull(3, sql::DataType::INTEGER);
+        }
+        stmnt->executeUpdate();
+    }catch(sql::SQLException &e){
+        std::cerr << "Error adding contact to database: " << e.what() << std::endl;
+    }   
 }
 
 } // namespace Database

@@ -67,14 +67,14 @@ void marking(int problem_id, const std::string& userId){
             in.read(&data[0], size);
 
             if(col.content != data){
-                problemLog.insertData({0,userId,problem_id,col.input_id,""});
+                problemLog.insert({0,userId,problem_id,col.input_id,""});
                 return;   
             }
         }
     }
 
     std::cout<<"problem id( " << problem_id << " )  correct!" <<std::endl;
-    problemLog.insertData({0,userId,problem_id,0,""});
+    problemLog.insert({0,userId,problem_id,0,""});
 }
 
 int main(int argc, char* argv[])

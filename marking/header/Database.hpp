@@ -7,6 +7,7 @@
 namespace Database{
     
 using ResultSetPtr = std::unique_ptr<sql::ResultSet>;
+using PreparedStatementPtr = std::shared_ptr<sql::PreparedStatement>;
 
 template <typename T>
 class MariaDB{
@@ -17,7 +18,7 @@ public:
     
     ResultSetPtr find(const sql::SQLString& query);
 
-    void insert(const sql::SQLString& query);
+    PreparedStatementPtr getInsertStmnt (const sql::SQLString& query);
 
     const std::vector<Column>& getTable() const {return table;}
 
@@ -62,8 +63,8 @@ ResultSetPtr MariaDB<T>::find(const sql::SQLString& query){
 }
 
 template <typename T>
-void MariaDB<T>::insert(const sql::SQLString& query){
-    stmnt->executeQuery(query);
+PreparedStatementPtr MariaDB<T>::getInsertStmnt(const sql::SQLString& query){
+    return PreparedStatementPtr(conn->prepareStatement(query));
 }
 
 } //namespace Database
