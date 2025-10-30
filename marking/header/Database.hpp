@@ -16,6 +16,9 @@ public:
     ~MariaDB();
     
     ResultSetPtr find(const sql::SQLString& query);
+
+    void insert(const sql::SQLString& query);
+
     const std::vector<Column>& getTable() const {return table;}
 
 protected:
@@ -56,6 +59,11 @@ ResultSetPtr MariaDB<T>::find(const sql::SQLString& query){
       std::cerr << "Error selecting tasks: " << e.what() << std::endl;
     }
     return nullptr;
+}
+
+template <typename T>
+void MariaDB<T>::insert(const sql::SQLString& query){
+    stmnt->executeQuery(query);
 }
 
 } //namespace Database

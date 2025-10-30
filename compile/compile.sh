@@ -5,6 +5,7 @@ path="../resource"
 file=$(find "$path" -maxdepth 1 -type f -name "main.*" | head -n 1)
 
 problem_id=$1
+user_id=$2
 
 if [ -n "$file" ]; then
     echo "파일 존재함"
@@ -17,12 +18,12 @@ if [ -n "$file" ]; then
         "c") 
             gcc $file -o "$path/a.out"
             cd /home/hanul/coding/marking_program/marking/build
-            ./program $ext $problem_id
+            ./program $ext $problem_id $user_id
             ;;
         "cpp") 
             g++ $file -o "$path/a.out"
             cd /home/hanul/coding/marking_program/marking/build
-            ./program $ext $problem_id
+            ./program $ext $problem_id $user_id
             ;;
     esac
 else

@@ -7,6 +7,7 @@
 #include "./header/Input.hpp"
 #include "./header/LanguageEnum.hpp"
 #include "./header/Output.hpp"
+#include "./header/ProblemLog.hpp"
 
 void changeProcess(LanguageEnum::code languageCode){
     switch(languageCode){
@@ -49,7 +50,10 @@ void startFork(int number, std::string content, LanguageEnum::code languageCode)
     }
 }
 
-void marking(int problem_id, Database::Output& output){
+void marking(int problem_id, const std::string& userId){
+    Database::Output output;
+    Database::ProblemLog problemLog;
+
     output.findProblemId(problem_id);
 
     for(const Database::Output::Column& col : output.getTable()){
@@ -62,38 +66,38 @@ void marking(int problem_id, Database::Output& output){
 
             in.read(&data[0], size);
 
-            if(col.content == data){
-                std::cout<<"problem id( " << problem_id << " )" << " input_id( " << col.input_id << " )" << " correct!\n";
-            }else{
-                std::cout<<"problem id( " << problem_id + " )" << " input_id( " << col.input_id << " )" << " incorrect!\n";
-                std::cout<<"\t this incorrect output is \""+col.content+"\"\n";
+            if(col.content != data){
+                problemLog.insertData({0,userId,problem_id,col.input_id,""});
+                return;   
             }
         }
     }
+
+    std::cout<<"problem id( " << problem_id << " )  correct!" <<std::endl;
+    problemLog.insertData({0,userId,problem_id,0,""});
 }
 
 int main(int argc, char* argv[])
 {
-    if(argc <= 1){
-        std::cout<<"[1] [2]"<<std::endl;
+    if(argc <= 3){
+        std::cout<<"[1] [2] [3]"<<std::endl;
         std::cout<<"[1] : 실행하고자 하는 언어 확장자"<<std::endl;
         std::cout<<"[2] : 문제 번호"<<std::endl;
-        std::cout<<"e.g., c 1"<<std::endl;
+        std::cout<<"[3] : 사용자 이름"<<std::endl;
+        std::cout<<"e.g., c 1 ul88"<<std::endl;
         exit(1);
     }
 
     int problem_id;
     LanguageEnum::code languageCode;
-
-    if(argc >= 2){
-        languageCode = LanguageEnum::getEnum(std::string(argv[1]));
-    }
-    if(argc >= 3){
-        problem_id = atoi(argv[2]);
-    }
-
+    std::string userId;
     Database::Input input;
-    Database::Output output;
+
+    if(argc >= 4){
+        languageCode = LanguageEnum::getEnum(std::string(argv[1]));
+        problem_id = atoi(argv[2]);
+        userId = argv[3];
+    }
 
     input.findProblemId(problem_id);
 
@@ -102,7 +106,7 @@ int main(int argc, char* argv[])
         wait(NULL);
     }
 
-    marking(problem_id, output);
+    marking(problem_id, userId);
     
     return 0;
 }
