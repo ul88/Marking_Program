@@ -1,5 +1,6 @@
 #pragma once
 #include<mariadb/conncpp.hpp>
+#include<stdlib.h>
 #include<memory>
 #include<vector>
 #include<stdexcept>
@@ -35,9 +36,9 @@ template <typename T>
 MariaDB<T>::MariaDB(const char* tableName) :
     conn(
         sql::DriverManager::getConnection(
-                sql::SQLString("jdbc:mariadb://127.0.0.1:3306/test"), 
-                sql::SQLString("root"),
-                sql::SQLString("1234")
+                sql::SQLString("jdbc:mariadb://127.0.0.1:3306/"+std::string(getenv("DB_TABLE"))), 
+                sql::SQLString(getenv("DB_NAME")),
+                sql::SQLString(getenv("DB_PASSWORD"))
             )
     ),
     stmnt(conn->createStatement()),
