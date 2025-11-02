@@ -13,10 +13,10 @@ void changeProcess(LanguageEnum::code languageCode){
     switch(languageCode){
     case LanguageEnum::code::C: 
     case LanguageEnum::code::CPP:
-        execl("/home/hanul/coding/marking_program/resource/a.out", "/home/hanul/coding/marking_program/resource/a.out", NULL);
+        execl("../resource/a.out", "../resource/a.out", NULL);
         break;
     case LanguageEnum::code::PYTHON:
-        execl("/usr/bin/python3","python3","/home/hanul/coding/marking_program/resource/main.py",NULL); // 파이썬
+        execl("/usr/bin/python3","python3","../resource/main.py",NULL); // 파이썬
         break;
     }
 }
@@ -30,7 +30,7 @@ void getPipe(int number, int fd[2]){
     close(output_fd);
 }
 
-void startFork(int number, std::string content, LanguageEnum::code languageCode){
+int startFork(int number, std::string content, LanguageEnum::code languageCode){
     int fd[2];
     if(pipe(fd) == -1) {
         std::cout<<"pipe error";
@@ -48,6 +48,8 @@ void startFork(int number, std::string content, LanguageEnum::code languageCode)
         std::cerr<<"fork fail";
         exit(1);
     }
+
+    return pid;
 }
 
 void marking(int problem_id, const std::string& userId){
@@ -101,12 +103,14 @@ int main(int argc, char* argv[])
 
     input.findProblemId(problem_id);
 
+    int pid;
+
     for(const Database::Input::Column col : input.getTable()){
-        startFork(col.id, col.content, languageCode);
+        pid = startFork(col.id, col.content, languageCode);
         wait(NULL);
     }
 
-    marking(problem_id, userId);
+    if(pid != 0) marking(problem_id, userId);
     
     return 0;
 }

@@ -1,16 +1,29 @@
-FROM alpine:latest
+FROM ubuntu:24.04
 
 # 기본 업데이트 및 개발도구
-RUN apk update && apk add --no-cache \
-    build-base \
+RUN apt update && apt install -y \
     gcc g++ \
     cmake \
-    python3 python3-dev py3-pip \
-    mariadb-connector-c-dev \
-    mariadb-connector-c++ \
-    mariadb-connector-c++-dev
+    wget \
+    curl && curl -LsSO https://r.mariadb.com/downloads/mariadb_repo_setup \
+    && chmod +x mariadb_repo_setup \
+    && ./mariadb_repo_setup \
+    && apt install -y libmariadb3 libmariadb-dev
+
+RUN ARCH=$(uname -m) && \
+    if [ "$ARCH" = "aarch64" ]; then \
+        wget https://dlm.mariadb.com/4464899/Connectors/cpp/connector-cpp-1.1.7/mariadb-connector-cpp_1.1.7-1+maria~noble_arm64.deb && \
+        dpkg -i mariadb-connector-cpp_1.1.7-1+maria~noble_arm64.deb && \
+        rm mariadb-connector-cpp_1.1.7-1+maria~noble_arm64.deb; \
+    else \
+        wget https://dlm.mariadb.com/4464930/Connectors/cpp/connector-cpp-1.1.7/mariadb-connector-cpp_1.1.7-1+maria~noble_amd64.deb && \
+        dpkg -i mariadb-connector-cpp_1.1.7-1+maria~noble_amd64.deb && \
+        rm mariadb-connector-cpp_1.1.7-1+maria~noble_amd64.deb; \
+    fi && apt install -f
 
 WORKDIR /app
 COPY . .
 
-ENTRYPOINT ["./run.sh"]
+RUN ./run.sh
+
+CMD ["/bin/bash"]

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-path="../resource"
+path="../marking/resource"
 
 file=$(find "$path" -maxdepth 1 -type f -name "main.*" | head -n 1)
 
@@ -17,12 +17,12 @@ if [ -n "$file" ]; then
     case $ext in
         "c") 
             gcc $file -o "$path/a.out"
-            cd /home/hanul/coding/marking_program/marking/build
+            cd ../marking/build
             ./program $ext $problem_id $user_id
             ;;
         "cpp") 
             g++ $file -o "$path/a.out"
-            cd /home/hanul/coding/marking_program/marking/build
+            cd ../marking/build
             ./program $ext $problem_id $user_id
             ;;
     esac

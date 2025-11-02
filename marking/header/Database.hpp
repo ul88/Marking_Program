@@ -36,7 +36,7 @@ template <typename T>
 MariaDB<T>::MariaDB(const char* tableName) :
     conn(
         sql::DriverManager::getConnection(
-                sql::SQLString("jdbc:mariadb://127.0.0.1:3306/"+std::string(getenv("DB_TABLE"))), 
+                sql::SQLString(std::string(getenv("DB_URL"))+std::string(getenv("DB_DATABASE"))), 
                 sql::SQLString(getenv("DB_NAME")),
                 sql::SQLString(getenv("DB_PASSWORD"))
             )

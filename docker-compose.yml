@@ -8,18 +8,23 @@ services:
     volumes:
       - ./db/conf.d:/etc/mysql/conf.d
       - ./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 4999:3306
   
   marker:
     container_name: marker
     build:
-      - context: .
-      - dockrfile: Dockerfile
-    restart: always
+      context: .
+      dockerfile: Dockerfile
+    restart: 'no'
+    stdin_open: true
+    tty: true
     depends_on:
       - db
     ports:
       - 5000:5000
     environment:
-      - DB_TABLE=test
+      - DB_URL=jdbc:mariadb://db:3306/
+      - DB_DATABASE=test
       - DB_NAME=root
       - DB_PASSWORD=1234
