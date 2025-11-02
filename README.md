@@ -8,8 +8,11 @@
 mkdir marking_program && cd marking_program
 git clone https://github.com/ul88/Marking_Program.git .
 
-docker compose up -d
+docker compose up db -d
+docker compose run -rm marker ./compile.sh 1 ul88
 ```
+이때, compile.sh의 첫 번째 인자는 문제의 번호 즉, test.problem 테이블의 id값
+두 번째 인자는 사용자 이름으로 아무 이름을 사용해도 상관 없다.
 
 ### 환경 설정
 
@@ -51,13 +54,6 @@ DB 설정을 수정은 ./db/docker-entrypoint-initdb.d/create_table.sql에서 �
 
 실행하고자 하는 코드 파일은
 ./marking/resource 에 main 이름으로 저장
-
-### 실행하기
-compile.sh의 첫 번째 인자는 문제의 번호 즉, test.problem 테이블의 id값
-두 번째 인자는 사용자 이름으로 아무 이름을 사용해도 상관 없다.
-```bash
-./compile/compile.sh 1 ul88
-```
 
 ### 테이블 정보
 
