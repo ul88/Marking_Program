@@ -39,8 +39,6 @@ services:
     restart: 'no'
     depends_on:
       - db
-    ports:
-      - 5000:5000
     environment:
       - DB_URL=jdbc:mariadb://db:3306/
       - DB_DATABASE=test
