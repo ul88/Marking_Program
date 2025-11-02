@@ -37,8 +37,6 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: 'no'
-    stdin_open: true
-    tty: true
     depends_on:
       - db
     ports:
