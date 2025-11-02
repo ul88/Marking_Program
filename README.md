@@ -88,9 +88,6 @@ services:
 
 DB 설정을 수정은 ./db/docker-entrypoint-initdb.d/create_table.sql에서 진행
 
-실행하고자 하는 코드 파일은
-./marking/resource 에 main 이름으로 저장
-
 ### 테이블 정보
 
 <img width="935" height="312" alt="Copy of Untitled Diagram" src="https://github.com/user-attachments/assets/3fe91a2a-f3fa-4834-ad63-3ecda3bc0c29" />
