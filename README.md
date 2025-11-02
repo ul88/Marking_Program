@@ -9,10 +9,50 @@ mkdir marking_program && cd marking_program
 git clone https://github.com/ul88/Marking_Program.git .
 
 docker compose up db -d
-docker compose run -rm marker ./compile.sh 1 ul88
+docker compose run -rm marker ./compile.sh cpp 1 ul88 < ./test
 ```
-이때, compile.sh의 첫 번째 인자는 문제의 번호 즉, test.problem 테이블의 id값
-두 번째 인자는 사용자 이름으로 아무 이름을 사용해도 상관 없다.
+이때, compile.sh의 첫 번째 인자는 컴파일할 언어의 확장자,
+두 번째 인자는 문제의 번호 즉, test.problem 테이블의 id값
+세 번째 인자는 사용자 이름으로 아무 이름을 사용해도 상관 없다.
+마지막으로 표준 입력을 이용해서 파일을 읽으므로,
+코드를 작성한 파일을 하나 생성하여 연결해준다.
+
+```sql
+INSERT INTO test.problem
+VALUE (1);
+
+INSERT INTO test.input
+VALUE (1, 1, "");
+
+INSERT INTO test.output
+VALUE (1, 1, "Hello World!");
+```
+db 컨테이너에 접속하여 다음과 같은 쿼리문을 실행
+
+```bash
+vim ./test
+```
+
+```cpp
+#include<iostream>
+using namespace std;
+int main()
+{
+  cout<<"Hello World!";
+  return 0;
+}
+```
+
+```bash
+docker compose run -rm marker ./compile.sh cpp 1 ul88 < ./test
+```
+#### [output]
+```bash
+[+] Creating 1/1
+ ✔ Container marking_program-db-1  Running                                                                                                                                                                                                               0.0s 
+problem id( 1 )  correct!
+```
+
 
 ### 환경 설정
 
