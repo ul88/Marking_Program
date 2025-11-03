@@ -16,4 +16,15 @@ namespace LanguageEnum{
         return code::SIZE;
     }
 
+    std::string getString(code c){
+        switch(c){
+        case C:
+            return "c";
+        case CPP:
+            return "cpp";
+        case PYTHON:
+            return "py";
+        }
+    }
+
 } //namespace LanguageEnum

@@ -6,7 +6,6 @@ COLLATE='utf8mb4_uca1400_ai_ci'
 ENGINE=InnoDB
 ;
 
-
 CREATE TABLE `input` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`problem_id` INT(11) NOT NULL,
@@ -37,6 +36,7 @@ CREATE TABLE `problem_log` (
 	`user_id` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_uca1400_ai_ci',
 	`problem_id` INT(11) NOT NULL,
 	`incorrect_input_id` INT(11) NULL DEFAULT NULL,
+	`ext` VARCHAR(10) NOT NULL COLLATE 'utf8mb4_uca1400_ai_ci',
 	`create_at_time` DATETIME NOT NULL DEFAULT current_timestamp(),
 	PRIMARY KEY (`id`) USING BTREE,
 	INDEX `fk_problem_id` (`problem_id`) USING BTREE,
@@ -47,3 +47,4 @@ CREATE TABLE `problem_log` (
 COLLATE='utf8mb4_uca1400_ai_ci'
 ENGINE=InnoDB
 ;
+

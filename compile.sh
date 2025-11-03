@@ -23,8 +23,8 @@ case $ext in
         cd ./marking/build
         ./program $ext $problem_id $user_id
         ;;
-    "python")
+    "py")
         cd ./marking/build
-        ./program $ext $program_id $user_id
+        ./program $ext $problem_id $user_id
         ;;
 esac

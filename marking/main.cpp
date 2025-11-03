@@ -52,7 +52,7 @@ int startFork(int number, std::string content, LanguageEnum::code languageCode){
     return pid;
 }
 
-void marking(int problem_id, const std::string& userId){
+void marking(int problem_id, const std::string& userId, LanguageEnum::code languageCode){
     Database::Output output;
     Database::ProblemLog problemLog;
 
@@ -69,14 +69,14 @@ void marking(int problem_id, const std::string& userId){
             in.read(&data[0], size);
 
             if(col.content != data){
-                problemLog.insert({0,userId,problem_id,col.input_id,""});
+                problemLog.insert({0,userId,problem_id,col.input_id,LanguageEnum::getString(languageCode),""});
                 return;   
             }
         }
     }
 
     std::cout<<"problem id( " << problem_id << " )  correct!" <<std::endl;
-    problemLog.insert({0,userId,problem_id,0,""});
+    problemLog.insert({0,userId,problem_id,0,,LanguageEnum::getString(languageCode),""});
 }
 
 int main(int argc, char* argv[])
@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
         wait(NULL);
     }
 
-    if(pid != 0) marking(problem_id, userId);
+    if(pid != 0) marking(problem_id, userId, languageCode);
     
     return 0;
 }
