@@ -69,14 +69,26 @@ void marking(int problem_id, const std::string& userId, LanguageEnum::code langu
             in.read(&data[0], size);
 
             if(col.content != data){
-                problemLog.insert({0,userId,problem_id,col.input_id,LanguageEnum::getString(languageCode),""});
+                problemLog.insert({0,
+                    userId,
+                    problem_id,
+                    col.input_id,
+                    col.content,
+                    LanguageEnum::getString(languageCode),
+                    ""});
                 return;   
             }
         }
     }
 
     std::cout<<"problem id( " << problem_id << " )  correct!" <<std::endl;
-    problemLog.insert({0,userId,problem_id,0,LanguageEnum::getString(languageCode),""});
+    problemLog.insert({0,
+        userId,
+        problem_id,
+        0,
+        "",
+        LanguageEnum::getString(languageCode),
+        ""});
 }
 
 int main(int argc, char* argv[])
