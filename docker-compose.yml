@@ -17,7 +17,6 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: 'no'
-    tty: true
     depends_on:
       - db
     environment:

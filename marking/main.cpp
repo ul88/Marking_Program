@@ -69,11 +69,13 @@ void marking(int problem_id, const std::string& userId, LanguageEnum::code langu
             in.read(&data[0], size);
 
             if(col.content != data){
+                std::cout<<"now_output: "<< data<<"\n";
+                std::cout<<"real output: "<< col.content<<"\n";
                 problemLog.insert({0,
                     userId,
                     problem_id,
                     col.input_id,
-                    col.content,
+                    data,
                     LanguageEnum::getString(languageCode),
                     ""});
                 return;   

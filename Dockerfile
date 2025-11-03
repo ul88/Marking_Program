@@ -4,6 +4,7 @@ FROM ubuntu:24.04
 RUN apt update && apt install -y \
     gcc g++ \
     cmake \
+    python3 \
     wget \
     curl && curl -LsSO https://r.mariadb.com/downloads/mariadb_repo_setup \
     && chmod +x mariadb_repo_setup \
