@@ -25,6 +25,7 @@ namespace LanguageEnum{
         case PYTHON:
             return "py";
         }
+        return "None";
     }
 
 } //namespace LanguageEnum

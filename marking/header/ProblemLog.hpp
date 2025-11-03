@@ -21,7 +21,7 @@ public:
 };
 
 void ProblemLog::insert(ProblemLog::Column column){
-    PreparedStatementPtr stmnt = getInsertStmnt("INSERT INTO " + tableName + "(user_id, problem_id, incorrect_input_id, ext) VALUES (?, ?, ?)");
+    PreparedStatementPtr stmnt = getInsertStmnt("INSERT INTO " + tableName + "(user_id, problem_id, incorrect_input_id, ext) VALUES (?, ?, ?, ?)");
 
     try{
         stmnt->setString(1, column.userId);

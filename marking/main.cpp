@@ -76,7 +76,7 @@ void marking(int problem_id, const std::string& userId, LanguageEnum::code langu
     }
 
     std::cout<<"problem id( " << problem_id << " )  correct!" <<std::endl;
-    problemLog.insert({0,userId,problem_id,0,,LanguageEnum::getString(languageCode),""});
+    problemLog.insert({0,userId,problem_id,0,LanguageEnum::getString(languageCode),""});
 }
 
 int main(int argc, char* argv[])
