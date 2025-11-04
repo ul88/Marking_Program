@@ -59,7 +59,7 @@ void marking(int problem_id, const std::string& userId, LanguageEnum::code langu
     output.findProblemId(problem_id);
 
     for(const Database::Output::Column& col : output.getTable()){
-        std::ifstream in("../output/output_" + std::to_string(col.input_id) + ".txt");
+        std::ifstream in("../output/output_" + std::to_string(col.id) + ".txt");
         if(in.is_open()){
             in.seekg(0, std::ios::end);
             int size = in.tellg();
@@ -74,7 +74,7 @@ void marking(int problem_id, const std::string& userId, LanguageEnum::code langu
                 problemLog.insert({0,
                     userId,
                     problem_id,
-                    col.input_id,
+                    col.id,
                     data,
                     LanguageEnum::getString(languageCode),
                     ""});

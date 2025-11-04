@@ -7,8 +7,8 @@ struct ProblemLogColumn{
     int id;
     std::string userId;
     int problemId;
-    int incorrectInputId;
-    std::string incorrectOutputText;
+    int incorrectOutputId;
+    std::string incorrectOutputContent;
     std::string ext;
     std::string createAtTime;
 };
@@ -22,14 +22,14 @@ public:
 };
 
 void ProblemLog::insert(ProblemLog::Column column){
-    PreparedStatementPtr stmnt = getInsertStmnt("INSERT INTO " + tableName + "(user_id, problem_id, incorrect_input_id, incorrect_output_text, ext) VALUES (?, ?, ?, ?, ?)");
+    PreparedStatementPtr stmnt = getInsertStmnt("INSERT INTO " + tableName + "(user_id, problem_id, incorrect_output_id, incorrect_output_content, ext) VALUES (?, ?, ?, ?, ?)");
 
     try{
         stmnt->setString(1, column.userId);
         stmnt->setInt(2, column.problemId);
-        if(column.incorrectInputId != 0){
-            stmnt->setInt(3, column.incorrectInputId);
-            stmnt->setString(4, column.incorrectOutputText);
+        if(column.incorrectOutputId != 0){
+            stmnt->setInt(3, column.incorrectOutputId);
+            stmnt->setString(4, column.incorrectOutputContent);
         }else{
             stmnt->setNull(3, sql::DataType::SQLNULL);
             stmnt->setNull(4, sql::DataType::SQLNULL);

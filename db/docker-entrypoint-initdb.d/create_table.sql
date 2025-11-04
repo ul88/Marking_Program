@@ -42,7 +42,7 @@ CREATE TABLE `problem_log` (
 	PRIMARY KEY (`id`) USING BTREE,
 	INDEX `fk_problem_id` (`problem_id`) USING BTREE,
 	INDEX `fk_incorrect_output_id` (`incorrect_output_id`) USING BTREE,
-	CONSTRAINT `fk_incorrect_output_id` FOREIGN KEY (`incorrect_output_id`) REFERENCES `input` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT `fk_incorrect_output_id` FOREIGN KEY (`incorrect_output_id`) REFERENCES `output` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT `fk_problem_id` FOREIGN KEY (`problem_id`) REFERENCES `problem` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 )
 COLLATE='utf8mb4_uca1400_ai_ci'
