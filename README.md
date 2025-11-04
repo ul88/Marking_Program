@@ -90,4 +90,5 @@ DB 설정을 수정은 ./db/docker-entrypoint-initdb.d/create_table.sql에서 �
 
 ### 테이블 정보
 
-<img width="935" height="312" alt="Copy of Untitled Diagram" src="https://github.com/user-attachments/assets/3fe91a2a-f3fa-4834-ad63-3ecda3bc0c29" />
+<img width="722" height="569" alt="Copy of Untitled Diagram" src="https://github.com/user-attachments/assets/3d8149ca-c119-4670-bfcd-084878a64437" />
+
