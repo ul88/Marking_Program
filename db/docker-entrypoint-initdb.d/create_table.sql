@@ -35,19 +35,18 @@ CREATE TABLE `problem_log` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`user_id` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_uca1400_ai_ci',
 	`problem_id` INT(11) NOT NULL,
-	`incorrect_input_id` INT(11) NULL DEFAULT NULL,
-	`incorrect_output_text` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_uca1400_ai_ci',
+	`incorrect_output_id` INT(11) NULL DEFAULT NULL,
+	`incorrect_output_content` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_uca1400_ai_ci',
 	`ext` VARCHAR(10) NOT NULL COLLATE 'utf8mb4_uca1400_ai_ci',
 	`create_at_time` DATETIME NOT NULL DEFAULT current_timestamp(),
 	PRIMARY KEY (`id`) USING BTREE,
 	INDEX `fk_problem_id` (`problem_id`) USING BTREE,
-	INDEX `fk_incorrect_input_id` (`incorrect_input_id`) USING BTREE,
-	CONSTRAINT `fk_incorrect_input_id` FOREIGN KEY (`incorrect_input_id`) REFERENCES `input` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+	INDEX `fk_incorrect_output_id` (`incorrect_output_id`) USING BTREE,
+	CONSTRAINT `fk_incorrect_output_id` FOREIGN KEY (`incorrect_output_id`) REFERENCES `input` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT `fk_problem_id` FOREIGN KEY (`problem_id`) REFERENCES `problem` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 )
 COLLATE='utf8mb4_uca1400_ai_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=4
 ;
 
 
