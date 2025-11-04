@@ -4,11 +4,9 @@ set -e
 # 프로젝트 디렉토리로 이동
 cd ./marking/
 
-# resource 디렉토리 생성
-mkdir -p resource
+# resource, output, build 디렉토리 생성
+mkdir -p resource output build
 
-# build 디렉토리 생성 (이미 있으면 무시)
-mkdir -p build
 cd build
 
 # CMake 설정 및 빌드
